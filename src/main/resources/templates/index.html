@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>HomePage</title>
+</head>
+<body>
+<h2 th:text="${text}"></h2>
+<ul class="nav-links">
+    <li class="nav-item"><a href="/">Home</a></li>
+    <li sec:authorize="hasRole('USER')" class="nav-item"><a href="/public-data">Public-data</a></li>
+    <li sec:authorize="hasRole('ADMIN')" class="nav-item"><a href="/private-data">Private-data</a></li>
+    <li sec:authorize="!isAuthenticated()" class="nav-item"><a href="/login">Login</a></li>
+    <li sec:authorize="isAuthenticated()" class="nav-item">
+        <form class="link" th:action="@{/logout}" method="post">
+            <input class="link" type="submit" value="Logout"/>
+        </form></li>
+</ul>
+</body>
+</html>
